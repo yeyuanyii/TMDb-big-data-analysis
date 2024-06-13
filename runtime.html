@@ -63,7 +63,7 @@
     let chart = generateChart('mountNode');
 
     window.onload = () => {
-      $.getJSON("/./static/runtime.json", d => {
+      $.getJSON("./static/runtime.json", d => {
         d.forEach(v => v.runtime = `${v.runtime}分钟`);
         chart.changeData(d);
       });
