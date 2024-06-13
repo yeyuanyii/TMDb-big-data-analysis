@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+  <title>TMDb 电影数据分析</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1 class="h1_1">
+      基于 Spark 的大数据处理与分析：TMDb电影数据分析<br></h1>
+    <h1 class="h1_2" "></h1>
+  </div>
+  <div class=" container">
+      <div class="chart-group">
+        <h2 class="chart-title">TMDb 电影类型分布
+          <hr>
+          <small>
+            ● 剧情片（1274 部）是数量最多的电影类型，这表明在 TMDb 中，剧情片占有相当大的比例。
+          </small>
+        </h2>
+        <iframe src="genres.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">TMDb 关键词分布（仅显示前 100 个关键词）
+          <hr>
+          <small>
+            ● 图表展示了TMDb电影的关键词词云，其中出现频率最高的关键词是“女导演”。<br>
+          </small>
+        </h2>
+        <iframe src="keywords.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">最常见的10种预算
+          <hr>
+          <small>
+            ● 大部分电影的预算集中在2000万美元左右,表明大部分电影制作普遍有一定的资金支持，能够保证一定的制作质量和视觉效果。<br>
+          </small>
+        </h2>
+        <iframe src="budget.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">TMDb 电影播放时间分布（仅显示数量大于100的结果）
+          <hr>
+          <small>● 此图显示了 TMDb 电影的播放时间分布，大多数电影播放时间为 90 分钟。</small>
+        </h2>
+        <iframe src="runtime.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">制作电影最多的前 10 名公司
+          <hr>
+          <small>● 此图显示了 TMDb 中制作电影最多的前 10 名公司，大多数电影由华纳兄弟制作。</small>
+        </h2>
+        <iframe src="company_count.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">TMDb 中最常用的前 10 种语言
+          <hr>
+          <small>● 此图显示了 TMDb 电影中使用的语言，最常用的语言是英语。</small>
+        </h2>
+        <iframe src="lang.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">预算与评分的关系
+          <hr>
+          <small>● 此图显示了预算与评分之间的关系（已经过滤掉评价过少和没有预算信息的电影），《肖申克的救赎》得分最高，但其在 TMDb 中的预算并不高。</small>
+        </h2>
+        <iframe src="budget_vote.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">上映日期与评分的关系
+          <hr>
+          <small>● 此图显示了上映日期与评分之间的关系（已经过滤掉评价过少和没有上映日期信息的电影）。早期电影的评分较高。</small>
+        </h2>
+        <iframe src="date_vote.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">受欢迎度与评分的关系
+          <hr>
+          <small>● 此图显示了受欢迎度与评分之间的关系（已经过滤掉评价过少和没有受欢迎度信息的电影）。尽管《小黄人大眼萌》仅得 6.4
+            分，但它是最受欢迎的电影。</small>
+        </h2>
+        <iframe src="pop_vote.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">公司制作数量与质量的关系
+          <hr>
+          <small style="font-size: 72%">● 此图显示了 TMDb 中公司电影数量与评分之间的关系（已经过滤掉评价过少和没有受欢迎度信息的电影）。制作电影最多的公司通常得分一般。</small>
+        </h2>
+        <iframe src="movies_vote.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+      <div class="chart-group">
+        <h2 class="chart-title">预算与收入的关系
+          <hr>
+          <small style="font-size: 72%">● 此图显示了 TMDb 电影的预算与收入之间的关系（已经过滤掉评价过少和没有预算和收入信息的电影）。《阿凡达》利润最高。</small>
+        </h2>
+        <iframe src="budget_revenue.html" class="frame" frameborder="0"></iframe>
+      </div>
+
+  </div>
+
+  <div class="dots">
+    <!-根据chart-group的数量生成相应数量的圆点 -->
+      <span class="dot" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+      <span class="dot" data-index="3"></span>
+      <span class="dot" data-index="4"></span>
+      <span class="dot" data-index="5"></span>
+      <span class="dot" data-index="6"></span>
+      <span class="dot" data-index="7"></span>
+      <span class="dot" data-index="8"></span>
+      <span class="dot" data-index="9"></span>
+      <span class="dot" data-index="10"></span>
+  </div>
+
+  <script src="./js/scripts.js"></script>
+</body>
+
+</html>

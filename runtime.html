@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>TOP 5000 电影数据分析</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html,
+    body {
+      font-family: 'Ubuntu Condensed';
+      height: 100%;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mountNode" style="height: 575px; width: 1300px;"></div>
+  <script>
+    // Fixing iframe window.innerHeight 0 issue in Safari
+    document.body.clientHeight;
+  </script>
+  <script src="./static/g2.min.js"></script>
+  <script src="./static/data-set.min.js"></script>
+  <script src="./static/jquery-3.2.1.min.js"></script>
+  <script>
+    function generateChart(id) {
+      var chart = new G2.Chart({
+        container: id,
+        width: 1300,
+        height: 575,
+        padding: [80, 80, 80, 200], // 增加右侧的padding以确保图例完整显示
+      });
+      chart.coord('polar', {
+        innerRadius: 0.2
+      });
+      chart.legend({
+        position: 'left-top', // 将图例位置设置在左上角
+        layout: 'vertical' // 竖直排列
+      });
+      chart.axis(false);
+      chart.interval().position('runtime*count').label("count").color('runtime', G2.Global.colors_pie_16).style({
+        lineWidth: 1,
+        stroke: '#fff'
+      });
+
+      chart.tooltip({
+        showTitle: false,
+        itemTpl: '<li data-index={index}><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}&nbsp&nbsp&nbsp{value}部</li>',
+      });
+
+      chart.render();
+      return chart;
+    }
+
+    let chart = generateChart('mountNode');
+
+    window.onload = () => {
+      $.getJSON("/./static/runtime.json", d => {
+        d.forEach(v => v.runtime = `${v.runtime}分钟`);
+        chart.changeData(d);
+      });
+    }
+  </script>
+</body>
+
+</html>

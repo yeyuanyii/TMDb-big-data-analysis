@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>词云</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html,
+    body {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mountNode"></div>
+  <script>/* 修复 Safari 中 iframe window.innerHeight 为 0 的问题 */document.body.clientHeight;</script>
+  <script src="./static/g2.min.js"></script>
+  <script src="./static/data-set.min.js"></script>
+  <script src="./static/jquery-3.2.1.min.js"></script>
+  <script src="./static/lodash-4.17.4.min.js"></script>
+  <script>
+    function getTextAttrs(cfg) {
+      return _.assign({}, cfg.style, {
+        fillOpacity: cfg.opacity,
+        fontSize: cfg.origin._origin.size,
+        rotate: cfg.origin._origin.rotate,
+        text: cfg.origin._origin.text,
+        textAlign: 'center',
+        fontFamily: cfg.origin._origin.font,
+        fill: cfg.color,
+        textBaseline: 'Alphabetic'
+      });
+    }
+
+    // 注册一个词云的 shape
+    G2.Shape.registerShape('point', 'cloud', {
+      drawShape: function drawShape(cfg, container) {
+        var attrs = getTextAttrs(cfg);
+        return container.addShape('text', {
+          attrs: _.assign(attrs, {
+            x: cfg.x,
+            y: cfg.y
+          })
+        });
+      }
+    });
+
+    $.getJSON('./static/keywords.json', function (data) {
+      var dv = new DataSet.View().source(data);
+      var range = dv.range('value');
+      var min = range[0];
+      var max = range[1];
+      dv.transform({
+        type: 'tag-cloud',
+        fields: ['x', 'value'],
+        size: [1200, 500], // 这里设置固定大小
+        font: 'Verdana',
+        padding: 0,
+        timeInterval: 5000,
+        rotate: function rotate() {
+          var random = ~~(Math.random() * 4) % 4;
+          if (random == 2) {
+            random = 0;
+          }
+          return random * 90; // 0, 90, 270
+        },
+        fontSize: function fontSize(d) {
+          if (d.value) {
+            return (d.value - min) / (max - min) * (40 - 24) + 24;
+          }
+          return 0;
+        }
+      });
+
+      var chart = new G2.Chart({
+        container: 'mountNode',
+        width: 1300, // 这里设置固定宽度
+        height: 575, // 这里设置固定高度
+        padding: [40, 80, 80, 80],
+      });
+
+      chart.source(dv, {
+        x: {
+          nice: false
+        },
+        y: {
+          nice: false
+        }
+      });
+      chart.legend(false);
+      chart.axis(false);
+      chart.tooltip({
+        showTitle: false,
+        itemTpl: '<li data-index={index} style="margin-bottom:4px;">{name}    {value}部</li>'
+      });
+      chart.coord().reflect();
+      chart.point().position('x*y').color('value').shape('cloud').tooltip('text*value', (text, value) => {
+        return {
+          name: text,
+          value: value
+        };
+      });
+      chart.render();
+    });
+  </script>
+</body>
+
+</html>

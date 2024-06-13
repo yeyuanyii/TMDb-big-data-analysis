@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>基础饼图-内部文本</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html,
+    body {
+      overflow: hidden;
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mountNode" style="height: 575px;width: 1300px;"></div>
+  <script>/* 修复 Safari 中 iframe window.innerHeight 为 0 的问题 */document.body.clientHeight;</script>
+  <script src="./static/g2.min.js"></script>
+  <script src="./static/data-set.min.js"></script>
+  <script src="./static/jquery-3.2.1.min.js"></script>
+  <script>
+    var chart = new G2.Chart({
+      container: 'mountNode',
+      width: 1300,
+      height: 575,
+      padding: [80, 80, 80, 200], // 增加右侧的padding以确保图例完整显示
+    });
+
+    chart.coord('theta');
+    chart.tooltip({
+      showTitle: false
+    });
+    chart.legend({
+      position: 'left-top', // 将图例位置设置在左上角
+      layout: 'vertical' // 竖直排列
+    });
+    chart.intervalStack().position('percent').color('lang').tooltip('lang*percent', function (lang, percent) {
+      percent = (percent * 100).toFixed(2) + '%';
+      return {
+        name: lang,
+        value: percent
+      };
+    }).style({
+      lineWidth: 1,
+      stroke: '#fff'
+    });
+    chart.render();
+
+    $.getJSON('./static/language.json', d => {
+      const total = d.map(v => v.count).reduce((x, y) => x + y)
+      d = d.map(v => ({
+        lang: v.language,
+        percent: v.count / total
+      }))
+      chart.changeData(d);
+    })
+  </script>
+</body>
+
+</html>

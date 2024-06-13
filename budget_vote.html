@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>散点图</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html,
+    body {
+      overflow: hidden;
+      width: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mountNode"></div>
+  <script>/* Fixing iframe window.innerHeight 0 issue in Safari */ document.body.clientHeight;</script>
+  <script src="./static/g2.min.js"></script>
+  <script src="./static/data-set.min.js"></script>
+  <script src="./static/jquery-3.2.1.min.js"></script>
+  <script>
+    $.getJSON('./static/budget_vote.json', function (data) {
+      data = data.map(v => ({
+        title: v[0],
+        budget: parseInt(v[1]) / 1e6, // budget
+        score: parseFloat(v[2]), // score
+      }));
+      var chart = new G2.Chart({
+        container: 'mountNode',
+        width: 1300, // 设置宽度为 1300
+        height: 555, // 设置高度为 575
+        padding: [40, 80, 80, 80],
+      });
+      chart.scale("budget", {
+        alias: "预算 (百万美元)"
+      });
+      chart.axis("score", {
+        title: {
+          text: '评分'
+        }
+      });
+      chart.axis("budget", {
+        title: true
+      });
+      chart.source(data);
+      chart.tooltip({
+        showTitle: false,
+        crosshairs: {
+          type: 'cross'
+        },
+        itemTpl: '<li data-index={index} style="margin-bottom:4px;">' + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' + '{name}<br/>' + '{value}' + '</li>'
+      });
+      chart.point().position('budget*score').size(4).shape('circle').opacity(0.65).tooltip('title*budget*score', function (title, budget, score) {
+        return {
+          name: title,
+          value: budget + ' 百万美元 , ' + ' 评分: ' + score
+        };
+      });
+      chart.render();
+    });
+  </script>
+</body>
+
+</html>
