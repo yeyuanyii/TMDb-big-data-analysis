@@ -80,7 +80,7 @@
     let chart = generateChart('mountNode', 'dodge', 'genre', '电影类型', 'count', '电影数量');
 
     window.onload = () => {
-      $.getJSON("/./static/genres.json", d => {
+      $.getJSON("./static/genres.json", d => {
         chart.changeData(d)
       })
     }
