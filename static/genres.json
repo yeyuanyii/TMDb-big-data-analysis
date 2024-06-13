@@ -1,0 +1,82 @@
+[
+    {
+        "genre": "动作",
+        "count": 1154
+    },
+    {
+        "genre": "冒险",
+        "count": 790
+    },
+    {
+        "genre": "奇幻",
+        "count": 424
+    },
+    {
+        "genre": "科幻",
+        "count": 535
+    },
+    {
+        "genre": "犯罪",
+        "count": 696
+    },
+    {
+        "genre": "剧情",
+        "count": 2297
+    },
+    {
+        "genre": "惊悚",
+        "count": 1274
+    },
+    {
+        "genre": "动画",
+        "count": 234
+    },
+    {
+        "genre": "家庭",
+        "count": 513
+    },
+    {
+        "genre": "西部",
+        "count": 82
+    },
+    {
+        "genre": "喜剧",
+        "count": 1722
+    },
+    {
+        "genre": "爱情",
+        "count": 894
+    },
+    {
+        "genre": "恐怖",
+        "count": 519
+    },
+    {
+        "genre": "悬疑",
+        "count": 348
+    },
+    {
+        "genre": "历史",
+        "count": 197
+    },
+    {
+        "genre": "战争",
+        "count": 144
+    },
+    {
+        "genre": "音乐",
+        "count": 185
+    },
+    {
+        "genre": "纪录片",
+        "count": 110
+    },
+    {
+        "genre": "外国",
+        "count": 34
+    },
+    {
+        "genre": "电视电影",
+        "count": 8
+    }
+]
