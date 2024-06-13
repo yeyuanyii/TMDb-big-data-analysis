@@ -110,7 +110,7 @@
   <script>
     let chart = generateChart('mountNode', 'dodge', 'budget', '预算（百万美元）', 'count', '电影数量');
     window.onload = () => {
-      $.getJSON("/./static/budget.json", d => {
+      $.getJSON("./static/budget.json", d => {
         chart.changeData(d)
       })
     }
