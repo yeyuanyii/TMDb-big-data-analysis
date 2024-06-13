@@ -72,7 +72,7 @@
     let chart = generateChart('mountNode', 'dodge', 'company', '公司', 'count', '电影数量');
 
     window.onload = () => {
-      $.getJSON("/./static/company_count.json", d => {
+      $.getJSON("./static/company_count.json", d => {
         chart.changeData(d)
       });
     }
